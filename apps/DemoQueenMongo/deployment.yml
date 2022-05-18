@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demomongoqueen
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demomongoqueen
+  template:
+    metadata:
+      labels:
+        app: demomongoqueen
+    spec:
+      containers:
+        - name: demomongoqueen
+          image: hbouttes/demoqueenmongo:0.0.1-SNAPSHOT

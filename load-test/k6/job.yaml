@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: k6-performance-test
+spec:
+  template:
+    metadata:
+      name: k6-performance-test
+    spec:
+      containers:
+        - name: k6
+          image: loadimpact/k6
+          resources:
+            limits:
+              cpu: "1.2"
+              memory: "16.2Gi"
+            requests:
+              cpu: "1"
+              memory: "16Gi"
+          env:
+            - name: PROTOCOL
+              value: ${PROTOCOL}
+            - name: HOSTNAME
+              value: ${HOSTNAME}
+            - name: VUS
+              value: "${VUS}"
+          args: ["run", "-o", "influxdb=http://my-influxdb:8086", "${K6_FILE_URI}"]
+      tolerations:   
+        - key: "metallica"
+          operator: "Equal"
+          value: "perf"
+          effect: "NoSchedule"
+      restartPolicy: Never
