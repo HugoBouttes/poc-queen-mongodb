@@ -1,17 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demomongoqueen
+  name: demo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: demomongoqueen
+      app: demo
   template:
     metadata:
       labels:
-        app: demomongoqueen
+        app: demo
     spec:
       containers:
-        - name: demomongoqueen
-          image: hbouttes/demoqueenmongo:0.0.1-SNAPSHOT
+        - name: demo
+          image:  hbouttes/demomongoqueen:0.0.1-SNAPSHOT
+          imagePullPolicy: Always
+          env :
+            - name: SPRING_DATA_MONGODB_URI
+                value: 'mongodb://demo:demo@my-mongodb-0.my-mongodb-headless,my-mongodb-1.my-mongodb-headless,my-mongodb-2.my-mongodb-headless:27017/poc?authSource=poc'
