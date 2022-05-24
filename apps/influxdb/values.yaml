@@ -1,0 +1,9 @@
+influxdb:
+  env:
+    - name: INFLUXDB_DB
+      value: "k6"
+  tolerations:   
+    - key: "demo"
+      operator: "Equal"
+      value: "perf"
+      effect: "NoSchedule"
