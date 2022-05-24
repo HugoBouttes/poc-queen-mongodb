@@ -1,0 +1,16 @@
+architecture: replicaset
+arbiter:
+  enabled: false
+replicaCount : 3
+auth:
+  rootPassword: demo
+  databases:
+    - poc
+  usernames:
+    - demo
+  passwords:
+    - demo
+metrics:
+  enabled: true
+  image:
+    tag: 0.11.2-debian-10-r393
