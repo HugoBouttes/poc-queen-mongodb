@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo
+  name: demoqueenmongo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: demo
+      app: demoqueenmongo
   template:
     metadata:
       labels:
-        app: demo
+        app: demoqueenmongo
     spec:
       containers:
-        - name: demo
+        - name: demoqueenmongo
           image:  hbouttes/demoqueenmongo:0.0.1-SNAPSHOT
           imagePullPolicy: Always
           env :

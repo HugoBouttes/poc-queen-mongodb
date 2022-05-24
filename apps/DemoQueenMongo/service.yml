@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: demo
+  name: demoqueenmongo
   labels:
-    app: demo
+    app: demoqueenmongo
 spec:
   type: ClusterIP
   ports:
@@ -11,4 +11,4 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
-    app: demo
+    app: demoqueenmongo
