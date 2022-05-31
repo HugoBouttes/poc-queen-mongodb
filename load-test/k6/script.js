@@ -11,6 +11,7 @@ export const options = {
 
 export default function () {
   const res = http.get('https://demoqueenmongo.dev.insee.io/api/paradata/');
+  const res2 = http.get('https://demoqueenmongo.dev.insee.io/api/metadata/');
   check(res, { 'status was 200': (r) => r.status == 200 });
   sleep(1);
 }
