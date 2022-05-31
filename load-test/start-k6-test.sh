@@ -1,7 +1,4 @@
 #!/bin/bash
-export VUS="250"
-export PROTOCOL="http"
-export HOSTNAME="demoqueenmongo:8080"
 ns=gr-queen-perf
 
 # Uri to k6 script file
