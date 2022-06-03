@@ -14,4 +14,4 @@
   - pour chaque itération faire:
     - **PUT** du contenu de fichier data-{iteration}.json sur _/api/survey-unit/{idSurveyUnit}/data_
     - **POST** du contenu de fichier paradata-{iteration}.json sur _/api/paradata_
-    - petite pause entre 3 et 10 sec
+    - petite pause 
