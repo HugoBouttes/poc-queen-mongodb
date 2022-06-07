@@ -14,3 +14,8 @@ metrics:
   enabled: true
   image:
     tag: 0.11.2-debian-10-r393
+tolerations:   
+    - key: "metallica"
+      operator: "Equal"
+      value: "perf"
+      effect: "NoSchedule"   
