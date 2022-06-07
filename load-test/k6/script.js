@@ -10,9 +10,17 @@ export const options = {
 };
 
 export default function () {
-  const res = http.get('https://demoqueenmongo.dev.insee.io/api/paradata/');
-  const res2 = http.get('https://demoqueenmongo.dev.insee.io/api/metadata/');
-  check(res, { 'status was 200': (r) => r.status == 200 });
+  const res1 = http.get('https://demoqueenmongo.dev.insee.io/api/survey-units/');
+  /****required nomenclature****/
+  const res3 = http.get('https://demoqueenmongo.dev.insee.io/api/nomenclature/');
+  /****questionnaire modèle****/
+  const res5 = http.get('https://demoqueenmongo.dev.insee.io/api/metadata/');
+  /****personnalization ****/
+  const res6 = http.put('https://demoqueenmongo.dev.insee.io/api/state-data/', ,params);
+  const res6 = http.put('https://demoqueenmongo.dev.insee.io/api/data/', ,params);
+  
+
+  check(res1, { 'status was 200': (r) => r.status == 200 });
   sleep(1);
   check(res2, { 'status was 200': (r) => r.status == 200 });
   sleep(1);
