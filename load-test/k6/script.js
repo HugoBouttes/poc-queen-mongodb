@@ -125,4 +125,3 @@ export default function (data) {
     fillingOutQuestions(data.arrData.length);
   });
 }
-
