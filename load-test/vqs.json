@@ -1,0 +1,2909 @@
+{
+  "id": "kejxez5c2011copie",
+  "modele": "m1",
+  "enoCoreVersion": "2.2.5",
+  "lunaticModelVersion": "2.1.0",
+  "pagination": "sequence",
+  "maxPage": "4",
+  "label": "VQS Web",
+  "components": [
+    {
+      "id": "kejxl9lk",
+      "componentType": "Sequence",
+      "page": "1",
+      "label": "\"I - Introduction\"",
+      "declarations": [
+        {
+          "id": "kejxl9lk-kejy60t1",
+          "declarationType": "INSTRUCTION",
+          "position": "AFTER_QUESTION_TEXT",
+          "label": "\"L’enquête est très courte, elle comporte une trentaine de questions et ne devrait pas vous prendre plus de 15 minutes. Cette enquête s’adresse à toutes les personnes vivant habituellement avec \" || cast(cast(LIBCONTACT,string),string) || \"Une personne peut répondre pour les autres.​\""
+        }
+      ],
+      "conditionFilter": "\"normal\"",
+      "hierarchy": {
+        "sequence": {
+          "id": "kejxl9lk",
+          "page": "1",
+          "label": "\"I - Introduction\""
+        }
+      },
+      "bindingDependencies": ["LIBCONTACT"]
+    },
+
+    {
+      "id": "kejxy84t",
+      "componentType": "Radio",
+      "mandatory": false,
+      "page": "1",
+      "label": "\"➡ 1. \" || cast(cast(LIBCONTACT,string),string) || \" réside-t-il/elle toujours à cette adresse ?​\" || cast(cast(ADRESSE,string),string) || \"\"",
+      "conditionFilter": "\"normal\"",
+      "hierarchy": {
+        "sequence": {
+          "id": "kejxl9lk",
+          "page": "1",
+          "label": "\"I - Introduction\""
+        }
+      },
+      "bindingDependencies": ["LIBCONTACT", "ADRESSE", "OKADRESS"],
+      "options": [
+        { "value": "1", "label": "\"Oui\"" },
+
+        { "value": "2", "label": "\"Non\"" }
+      ],
+      "response": { "name": "OKADRESS" }
+    },
+
+    {
+      "id": "ker5lx5h",
+      "componentType": "Radio",
+      "mandatory": false,
+      "page": "1",
+      "label": "\"➡ 2. Où \" || cast(cast(LIBCONTACT,string),string) || \" habite-t-il/elle actuellement ? \"",
+      "conditionFilter": "\"normal\"",
+      "hierarchy": {
+        "sequence": {
+          "id": "kejxl9lk",
+          "page": "1",
+          "label": "\"I - Introduction\""
+        }
+      },
+      "bindingDependencies": ["LIBCONTACT", "RESIDM"],
+      "options": [
+        {
+          "value": "1",
+          "label": "\"En France, dans un établissement à destination de personnes en situation de handicap, ou de personnes âgées\""
+        },
+
+        {
+          "value": "2",
+          "label": "\"En France, dans un établissement de l’aide sociale à l’enfance\""
+        },
+
+        {
+          "value": "3",
+          "label": "\"En France, dans un autre type de logement\""
+        },
+
+        { "value": "4", "label": "\"A l’étranger\"" }
+      ],
+      "response": { "name": "RESIDM" }
+    },
+
+    {
+      "id": "kfpub47i",
+      "componentType": "InputNumber",
+      "mandatory": false,
+      "page": "1",
+      "min": 1,
+      "max": 99999,
+      "decimals": 0,
+      "label": "\"➡ 3. Quel est le numéro de voie ? test\"",
+      "declarations": [
+        {
+          "id": "kgw1s4pa-SI",
+          "declarationType": "STATEMENT",
+          "position": "BEFORE_QUESTION_TEXT",
+          "label": "\"Vous avez que \" || cast(cast(LIBCONTACT,string),string) || \" a déménagé. Veuillez indiquer sa nouvelle adresse. \""
+        },
+
+        {
+          "id": "kfpub47i-kh4kq2mk",
+          "declarationType": "INSTRUCTION",
+          "position": "AFTER_QUESTION_TEXT",
+          "label": "\"Il s’agit du numéro dans la rue. Écrire la réponse sous forme de nombre. Par exemple : 45\""
+        }
+      ],
+      "conditionFilter": "\"normal\"",
+      "hierarchy": {
+        "sequence": {
+          "id": "kejxl9lk",
+          "page": "1",
+          "label": "\"I - Introduction\""
+        }
+      },
+      "bindingDependencies": ["LIBCONTACT", "NVOI"],
+      "response": { "name": "NVOI" }
+    },
+
+    {
+      "id": "kgw2gyze",
+      "componentType": "Input",
+      "mandatory": false,
+      "page": "1",
+      "maxLength": 20,
+      "label": "\"➡ 4. S’il existe, quel est l’indice de répétition ?\"",
+      "declarations": [
+        {
+          "id": "kgw2gyze-kh4mnjbi",
+          "declarationType": "INSTRUCTION",
+          "position": "AFTER_QUESTION_TEXT",
+          "label": "\"Par exemple : bis, ter ...\""
+        }
+      ],
+      "conditionFilter": "\"normal\"",
+      "hierarchy": {
+        "sequence": {
+          "id": "kejxl9lk",
+          "page": "1",
+          "label": "\"I - Introduction\""
+        }
+      },
+      "bindingDependencies": ["NVOIC"],
+      "response": { "name": "NVOIC" }
+    },
+
+    {
+      "id": "kgw1qalj",
+      "componentType": "Textarea",
+      "mandatory": false,
+      "page": "1",
+      "maxLength": 255,
+      "label": "\"➡ 5. Quels sont le type et le nom de la voie ?\"",
+      "declarations": [
+        {
+          "id": "kgw1qalj-kh4m4ykg",
+          "declarationType": "INSTRUCTION",
+          "position": "AFTER_QUESTION_TEXT",
+          "label": "\"Par exemple : rue des plantes, avenue du général Leclerc...\""
+        }
+      ],
+      "conditionFilter": "\"normal\"",
+      "hierarchy": {
+        "sequence": {
+          "id": "kejxl9lk",
+          "page": "1",
+          "label": "\"I - Introduction\""
+        }
+      },
+      "bindingDependencies": ["NLIB"],
+      "response": { "name": "NLIB" }
+    },
+
+    {
+      "id": "kgw22pxh",
+      "componentType": "Textarea",
+      "mandatory": false,
+      "page": "1",
+      "maxLength": 255,
+      "label": "\"➡ 6. S’il existe, quel est le complément d’adresse ?\"",
+      "declarations": [
+        {
+          "id": "kgw22pxh-kh4me5zx",
+          "declarationType": "INSTRUCTION",
+          "position": "AFTER_QUESTION_TEXT",
+          "label": "\"Le complément d’adresse correspond à toute précision utile et non précisée jusqu’à présent : bâtiment, numéro d’appartement, boîte à lettres, étage, escalier ... Par exemple : bâtiment C, étage 4\""
+        }
+      ],
+      "conditionFilter": "\"normal\"",
+      "hierarchy": {
+        "sequence": {
+          "id": "kejxl9lk",
+          "page": "1",
+          "label": "\"I - Introduction\""
+        }
+      },
+      "bindingDependencies": ["NCOMP"],
+      "response": { "name": "NCOMP" }
+    },
+
+    {
+      "id": "kgw2dgqu",
+      "componentType": "Input",
+      "mandatory": false,
+      "page": "1",
+      "maxLength": 5,
+      "label": "\"➡ 7. Quel est le code postal ?\"",
+      "declarations": [
+        {
+          "id": "kgw2dgqu-kh4mhnl5",
+          "declarationType": "INSTRUCTION",
+          "position": "AFTER_QUESTION_TEXT",
+          "label": "\"Noter les 5 chiffres du code postal Par exemple : 31000\""
+        }
+      ],
+      "conditionFilter": "\"normal\"",
+      "hierarchy": {
+        "sequence": {
+          "id": "kejxl9lk",
+          "page": "1",
+          "label": "\"I - Introduction\""
+        }
+      },
+      "bindingDependencies": ["NCODPOS"],
+      "response": { "name": "NCODPOS" }
+    },
+
+    {
+      "id": "kgam8uff",
+      "componentType": "Textarea",
+      "mandatory": false,
+      "page": "1",
+      "maxLength": 255,
+      "label": "\"➡ 8. Quel est le nom de la commune ?\"",
+      "declarations": [
+        {
+          "id": "kgam8uff-kh4mlfrk",
+          "declarationType": "INSTRUCTION",
+          "position": "AFTER_QUESTION_TEXT",
+          "label": "\"Par exemple : Toulouse\""
+        }
+      ],
+      "conditionFilter": "\"normal\"",
+      "hierarchy": {
+        "sequence": {
+          "id": "kejxl9lk",
+          "page": "1",
+          "label": "\"I - Introduction\""
+        }
+      },
+      "bindingDependencies": ["NCOMMU"],
+      "response": { "name": "NCOMMU" }
+    },
+
+    {
+      "id": "kkf5nk82",
+      "componentType": "Table",
+      "mandatory": false,
+      "page": "1",
+      "positioning": "HORIZONTAL",
+      "label": "\"➡ 9. THL\"",
+      "conditionFilter": "\"normal\"",
+      "hierarchy": {
+        "sequence": {
+          "id": "kejxl9lk",
+          "page": "1",
+          "label": "\"I - Introduction\""
+        }
+      },
+      "bindingDependencies": [
+        "THL1",
+        "THL2",
+        "THL1_1_1",
+        "THL2_1_2",
+        "THL1_2_1",
+        "THL2_2_2",
+        "THL1_3_1",
+        "THL2_3_2",
+        "THL1_4_1",
+        "THL2_4_2",
+        "THL1_5_1",
+        "THL2_5_2",
+        "THL1_6_1",
+        "THL2_6_2",
+        "THL1_7_1",
+        "THL2_7_2",
+        "THL1_8_1",
+        "THL2_8_2",
+        "THL1_9_1",
+        "THL2_9_2",
+        "THL1_10_1",
+        "THL2_10_2",
+        "THL1_11_1",
+        "THL2_11_2",
+        "THL1_12_1",
+        "THL2_12_2",
+        "THL1_13_1",
+        "THL2_13_2",
+        "THL1_14_1",
+        "THL2_14_2",
+        "THL1_15_1",
+        "THL2_15_2",
+        "THL1_16_1",
+        "THL2_16_2",
+        "THL1_17_1",
+        "THL2_17_2",
+        "THL1_18_1",
+        "THL2_18_2",
+        "THL1_19_1",
+        "THL2_19_2",
+        "THL1_20_1",
+        "THL2_20_2"
+      ],
+      "lines": { "min": 1, "max": 20 },
+      "cells": [
+        [
+          { "headerCell": true, "label": "\"Prénom\"" },
+
+          { "headerCell": true, "label": "\"âge\"" }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_1_1",
+            "response": { "name": "THL1_1_1" },
+            "bindingDependencies": ["THL1_1_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_1_2",
+            "response": { "name": "THL2_1_2" },
+            "bindingDependencies": ["THL2_1_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_2_1",
+            "response": { "name": "THL1_2_1" },
+            "bindingDependencies": ["THL1_2_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_2_2",
+            "response": { "name": "THL2_2_2" },
+            "bindingDependencies": ["THL2_2_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_3_1",
+            "response": { "name": "THL1_3_1" },
+            "bindingDependencies": ["THL1_3_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_3_2",
+            "response": { "name": "THL2_3_2" },
+            "bindingDependencies": ["THL2_3_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_4_1",
+            "response": { "name": "THL1_4_1" },
+            "bindingDependencies": ["THL1_4_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_4_2",
+            "response": { "name": "THL2_4_2" },
+            "bindingDependencies": ["THL2_4_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_5_1",
+            "response": { "name": "THL1_5_1" },
+            "bindingDependencies": ["THL1_5_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_5_2",
+            "response": { "name": "THL2_5_2" },
+            "bindingDependencies": ["THL2_5_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_6_1",
+            "response": { "name": "THL1_6_1" },
+            "bindingDependencies": ["THL1_6_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_6_2",
+            "response": { "name": "THL2_6_2" },
+            "bindingDependencies": ["THL2_6_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_7_1",
+            "response": { "name": "THL1_7_1" },
+            "bindingDependencies": ["THL1_7_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_7_2",
+            "response": { "name": "THL2_7_2" },
+            "bindingDependencies": ["THL2_7_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_8_1",
+            "response": { "name": "THL1_8_1" },
+            "bindingDependencies": ["THL1_8_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_8_2",
+            "response": { "name": "THL2_8_2" },
+            "bindingDependencies": ["THL2_8_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_9_1",
+            "response": { "name": "THL1_9_1" },
+            "bindingDependencies": ["THL1_9_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_9_2",
+            "response": { "name": "THL2_9_2" },
+            "bindingDependencies": ["THL2_9_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_10_1",
+            "response": { "name": "THL1_10_1" },
+            "bindingDependencies": ["THL1_10_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_10_2",
+            "response": { "name": "THL2_10_2" },
+            "bindingDependencies": ["THL2_10_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_11_1",
+            "response": { "name": "THL1_11_1" },
+            "bindingDependencies": ["THL1_11_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_11_2",
+            "response": { "name": "THL2_11_2" },
+            "bindingDependencies": ["THL2_11_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_12_1",
+            "response": { "name": "THL1_12_1" },
+            "bindingDependencies": ["THL1_12_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_12_2",
+            "response": { "name": "THL2_12_2" },
+            "bindingDependencies": ["THL2_12_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_13_1",
+            "response": { "name": "THL1_13_1" },
+            "bindingDependencies": ["THL1_13_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_13_2",
+            "response": { "name": "THL2_13_2" },
+            "bindingDependencies": ["THL2_13_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_14_1",
+            "response": { "name": "THL1_14_1" },
+            "bindingDependencies": ["THL1_14_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_14_2",
+            "response": { "name": "THL2_14_2" },
+            "bindingDependencies": ["THL2_14_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_15_1",
+            "response": { "name": "THL1_15_1" },
+            "bindingDependencies": ["THL1_15_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_15_2",
+            "response": { "name": "THL2_15_2" },
+            "bindingDependencies": ["THL2_15_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_16_1",
+            "response": { "name": "THL1_16_1" },
+            "bindingDependencies": ["THL1_16_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_16_2",
+            "response": { "name": "THL2_16_2" },
+            "bindingDependencies": ["THL2_16_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_17_1",
+            "response": { "name": "THL1_17_1" },
+            "bindingDependencies": ["THL1_17_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_17_2",
+            "response": { "name": "THL2_17_2" },
+            "bindingDependencies": ["THL2_17_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_18_1",
+            "response": { "name": "THL1_18_1" },
+            "bindingDependencies": ["THL1_18_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_18_2",
+            "response": { "name": "THL2_18_2" },
+            "bindingDependencies": ["THL2_18_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_19_1",
+            "response": { "name": "THL1_19_1" },
+            "bindingDependencies": ["THL1_19_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_19_2",
+            "response": { "name": "THL2_19_2" },
+            "bindingDependencies": ["THL2_19_2"]
+          }
+        ],
+
+        [
+          {
+            "componentType": "Textarea",
+            "maxLength": 255,
+            "id": "kkf5nk82-QOP-kkf5rc9k_20_1",
+            "response": { "name": "THL1_20_1" },
+            "bindingDependencies": ["THL1_20_1"]
+          },
+
+          {
+            "componentType": "InputNumber",
+            "min": 0,
+            "max": 120,
+            "decimals": 0,
+            "id": "kkf5nk82-QOP-kkf5uoe9_20_2",
+            "response": { "name": "THL2_20_2" },
+            "bindingDependencies": ["THL2_20_2"]
+          }
+        ]
+      ]
+    },
+
+    {
+      "id": "kejyfwqj",
+      "componentType": "Sequence",
+      "page": "2",
+      "label": "\"II - Les habitants du logement\"",
+      "declarations": [
+        {
+          "id": "kejyfwqj-kejy4m1u",
+          "declarationType": "INSTRUCTION",
+          "position": "AFTER_QUESTION_TEXT",
+          "label": "\"Nous allons lister les habitants habituels du logement. Ce sont les adultes et les enfants :- qui vivent plus de 6 mois dans ce logement - ou qui vivent 6 mois dans ce logement et 6 mois dans un autre logement (par exemple les enfants en garde alternée), s’ils ont dormi dans ce logement la nuit dernière.\""
+        }
+      ],
+      "conditionFilter": "\"normal\"",
+      "hierarchy": {
+        "sequence": {
+          "id": "kejyfwqj",
+          "page": "2",
+          "label": "\"II - Les habitants du logement\""
+        }
+      }
+    },
+
+    {
+      "id": "kejymd3m",
+      "componentType": "InputNumber",
+      "mandatory": false,
+      "page": "2",
+      "min": 1,
+      "max": 20,
+      "decimals": 0,
+      "label": "\"➡ 1. Combien de personnes vivent habituellement dans le logement où vit \" || cast(cast(LIBCONTACT,string),string) || \"? \"",
+      "declarations": [
+        {
+          "id": "kejymd3m-kejyqjq5",
+          "declarationType": "INSTRUCTION",
+          "position": "AFTER_QUESTION_TEXT",
+          "label": "\"Compter également \" || cast(cast(LIBCONTACT,string),string) || \".​Cas des personnes vivant dans un logement d’une gendarmerie, d’un foyer de travailleurs, d’une cité universitaire, etc. : compter \" || cast(cast(LIBCONTACT,string),string) || \" comme seule personne habitant dans le logement.\""
+        }
+      ],
+      "conditionFilter": "\"normal\"",
+      "hierarchy": {
+        "sequence": {
+          "id": "kejyfwqj",
+          "page": "2",
+          "label": "\"II - Les habitants du logement\""
+        }
+      },
+      "bindingDependencies": ["LIBCONTACT", "NHAB"],
+      "response": { "name": "NHAB" }
+    },
+
+    {
+      "id": "kiuclpdh",
+      "componentType": "Loop",
+      "page": "2",
+      "paginatedLoop": false,
+      "label": "\"Ajouter un habitant\"",
+      "conditionFilter": "\"normal\"",
+      "hierarchy": {
+        "sequence": {
+          "id": "kejyfwqj",
+          "page": "2",
+          "label": "\"II - Les habitants du logement\""
+        }
+      },
+      "bindingDependencies": ["LIBCONTACT", "prenom", "NOM", "SEXE", "DTNAIS"],
+      "components": [
+        {
+          "id": "kh3v5m6a",
+          "componentType": "Subsequence",
+          "page": "2",
+          "label": "\"Présentation des habitants\"",
+          "declarations": [
+            {
+              "id": "kh3v5m6a-kh3vcw47",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Nous allons vous demander de décrire ces personnes.\" || cast(cast(LIBCONTACT,string),string) || \" doit figurer dans cette liste.\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejyfwqj",
+              "page": "2",
+              "label": "\"II - Les habitants du logement\""
+            },
+            "subSequence": {
+              "id": "kh3v5m6a",
+              "page": "2",
+              "label": "\"Présentation des habitants\""
+            }
+          },
+          "bindingDependencies": ["LIBCONTACT"]
+        },
+
+        {
+          "id": "kek24wga",
+          "componentType": "Textarea",
+          "mandatory": false,
+          "page": "2",
+          "maxLength": 255,
+          "label": "\"➡ 2. Quel est le prénom de l’individu XXXXX ?\"",
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejyfwqj",
+              "page": "2",
+              "label": "\"II - Les habitants du logement\""
+            },
+            "subSequence": {
+              "id": "kh3v5m6a",
+              "page": "2",
+              "label": "\"Présentation des habitants\""
+            }
+          },
+          "bindingDependencies": ["prenom"],
+          "response": { "name": "prenom" }
+        },
+
+        {
+          "id": "kgw2jmcs",
+          "componentType": "Textarea",
+          "mandatory": false,
+          "page": "2",
+          "maxLength": 255,
+          "label": "\"➡ 3. Quel est le nom de famille de l’individu XXXXX ?\"",
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejyfwqj",
+              "page": "2",
+              "label": "\"II - Les habitants du logement\""
+            },
+            "subSequence": {
+              "id": "kh3v5m6a",
+              "page": "2",
+              "label": "\"Présentation des habitants\""
+            }
+          },
+          "bindingDependencies": ["NOM"],
+          "response": { "name": "NOM" }
+        },
+
+        {
+          "id": "kgw2sc13",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "2",
+          "label": "\"➡ 4. Quel est le sexe de l’individu XXXXX ?\"",
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejyfwqj",
+              "page": "2",
+              "label": "\"II - Les habitants du logement\""
+            },
+            "subSequence": {
+              "id": "kh3v5m6a",
+              "page": "2",
+              "label": "\"Présentation des habitants\""
+            }
+          },
+          "bindingDependencies": ["SEXE"],
+          "options": [
+            { "value": "1", "label": "\"Homme\"" },
+
+            { "value": "2", "label": "\"Femme\"" }
+          ],
+          "response": { "name": "SEXE" }
+        },
+
+        {
+          "id": "kgw2niw5",
+          "componentType": "Datepicker",
+          "mandatory": false,
+          "page": "2",
+          "min": "1890-01-01",
+          "label": "\"➡ 5. Quelle est la date de naissance de l’individu XXXXX ?\"",
+          "declarations": [
+            {
+              "id": "kgw2niw5-kh4n5cdi",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Notez le jour, le mois et l’année. Par exemple : 01/04/1936.\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejyfwqj",
+              "page": "2",
+              "label": "\"II - Les habitants du logement\""
+            },
+            "subSequence": {
+              "id": "kh3v5m6a",
+              "page": "2",
+              "label": "\"Présentation des habitants\""
+            }
+          },
+          "bindingDependencies": ["DTNAIS"],
+          "dateFormat": "YYYY-MM-DD",
+          "response": { "name": "DTNAIS" }
+        }
+      ]
+    },
+
+    {
+      "id": "kjso2xnl",
+      "componentType": "Subsequence",
+      "page": "2",
+      "label": "\"test\"",
+      "conditionFilter": "\"normal\"",
+      "hierarchy": {
+        "sequence": {
+          "id": "kejyfwqj",
+          "page": "2",
+          "label": "\"II - Les habitants du logement\""
+        },
+        "subSequence": { "id": "kjso2xnl", "page": "2", "label": "\"test\"" }
+      }
+    },
+
+    {
+      "id": "kiucta33",
+      "componentType": "Loop",
+      "page": "3",
+      "maxPage": "1",
+      "min": 0,
+      "iterations": "count(prenom)",
+      "depth": 1,
+      "paginatedLoop": true,
+      "conditionFilter": "\"normal\"",
+      "bindingDependencies": [
+        "prenom",
+        "NHAB",
+        "AIDREG_D",
+        "AIDREG_A",
+        "AIDREG_B",
+        "AIDREG_C",
+        "ETAT_SANT",
+        "MAL_CHRO",
+        "LIMITAT",
+        "VUE",
+        "AUDITIF",
+        "MARCHE",
+        "BRAS",
+        "MAIN",
+        "CONCENTRA",
+        "DECISION",
+        "SORTIES",
+        "COMPRENDRE",
+        "PSY",
+        "HPSY",
+        "AIDPRO",
+        "AIDENT",
+        "AMENALOG",
+        "AIDTECH",
+        "HANDICAP",
+        "RECONNAI",
+        "APPRENT",
+        "RELATION1",
+        "RELATION2",
+        "RELATION3",
+        "RESIDANCIEN"
+      ],
+      "loopDependencies": ["prenom", "NOM", "SEXE", "DTNAIS"],
+      "components": [
+        {
+          "id": "kejydb2m",
+          "componentType": "Sequence",
+          "page": "3.1",
+          "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \"",
+          "declarations": [
+            {
+              "id": "kejydb2m-kejy4wmu",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Nous allons maintenant évoquer l’état de santé de chacune de ces personnes.\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom"]
+        },
+
+        {
+          "id": "kejyrpog",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 1. Comment est l’état de santé général de \" || cast(cast(prenom,string),string) || \" ? \"",
+          "declarations": [
+            {
+              "id": "kejyrpog-kh99nrbd",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Ne tenez pas compte des problèmes de santé passagers ou temporaires (comme la grippe par exemple).\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "ETAT_SANT"],
+          "options": [
+            { "value": "1", "label": "\"Très bon\"" },
+
+            { "value": "2", "label": "\"Bon\"" },
+
+            { "value": "3", "label": "\"Assez bon\"" },
+
+            { "value": "4", "label": "\"Mauvais\"" },
+
+            { "value": "5", "label": "\"Très mauvais\"" }
+          ],
+          "response": { "name": "ETAT_SANT" }
+        },
+
+        {
+          "id": "kerafhb6",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 2. \" || cast(cast(prenom,string),string) || \" a-t-il/elle une maladie ou un problème de santé qui soit chronique ou de caractère durable ? \"",
+          "declarations": [
+            {
+              "id": "kerafhb6-kerajrim",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Une maladie chronique dure pendant au moins 6 mois. Ne tenez pas compte des problèmes de santé passagers ou temporaires (comme la grippe par exemple).\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "MAL_CHRO"],
+          "options": [
+            { "value": "1", "label": "\"Oui\"" },
+
+            { "value": "2", "label": "\"Non\"" }
+          ],
+          "response": { "name": "MAL_CHRO" }
+        },
+
+        {
+          "id": "kerai3vx",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 3. \" || cast(cast(prenom,string),string) || \" est-il/elle limité(e), depuis au moins six mois, à cause d’un problème de santé, dans les activités que les gens font habituellement ? \"",
+          "declarations": [
+            {
+              "id": "kerai3vx-keramper",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Ne tenez pas compte des problèmes de santé passagers ou temporaires (comme la grippe par exemple).\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "LIMITAT"],
+          "options": [
+            { "value": "1", "label": "\"Oui, fortement limité(e)\"" },
+
+            { "value": "2", "label": "\"Oui, limité(e) mais pas fortement\"" },
+
+            { "value": "3", "label": "\"Non, pas limité(e) du tout\"" }
+          ],
+          "response": { "name": "LIMITAT" }
+        },
+
+        {
+          "id": "kejyo1dk",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 4. \" || cast(cast(prenom,string),string) || \" a-t-il/elle des difficultés pour voir, même avec des lunettes ou des lentilles de contact s’il/elle en porte ? \"",
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "VUE"],
+          "options": [
+            { "value": "1", "label": "\"Non, aucune\"" },
+
+            { "value": "2", "label": "\"Oui, un peu\"" },
+
+            { "value": "3", "label": "\"Oui, beaucoup\"" },
+
+            { "value": "4", "label": "\"Ne voit pas du tout\"" }
+          ],
+          "response": { "name": "VUE" }
+        },
+
+        {
+          "id": "kerbdhdo",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 5. \" || cast(cast(prenom,string),string) || \" a-t-il/elle des difficultés pour entendre, même avec un implant ou un appareil auditif s’il/si elle en porte ? \"",
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "AUDITIF"],
+          "options": [
+            { "value": "1", "label": "\"Non, aucune\"" },
+
+            { "value": "2", "label": "\"Oui, un peu\"" },
+
+            { "value": "3", "label": "\"Oui, beaucoup\"" },
+
+            { "value": "4", "label": "\"N’entend pas du tout\"" }
+          ],
+          "response": { "name": "AUDITIF" }
+        },
+
+        {
+          "id": "keratll0",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 6. \" || cast(cast(prenom,string),string) || \" a-t-il/elle des difficultés pour monter un étage d’escalier ou marcher sur 500 mètres ? \"",
+          "declarations": [
+            {
+              "id": "keratll0-kh3vbt7m",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Renseignez la difficulté la plus importante. Par exemple, si la personne peut marcher 500 mètres, mais ne peut pas du tout monter un escalier, cochez ’’ne peut pas du tout’’.Pour un enfant, indiquez par rapport aux autres enfants du même âge.\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "MARCHE"],
+          "options": [
+            { "value": "1", "label": "\"Non, aucune\"" },
+
+            { "value": "2", "label": "\"Oui, un peu\"" },
+
+            { "value": "3", "label": "\"Oui, beaucoup\"" },
+
+            { "value": "4", "label": "\"Ne peut pas du tout\"" }
+          ],
+          "response": { "name": "MARCHE" }
+        },
+
+        {
+          "id": "kerbmp96",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 7. \" || cast(cast(prenom,string),string) || \" a-t-il/elle des difficultés pour lever un bras au-dessus de la tête ? \"",
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "BRAS"],
+          "options": [
+            { "value": "1", "label": "\"Non, aucune\"" },
+
+            { "value": "2", "label": "\"Oui, un peu\"" },
+
+            { "value": "3", "label": "\"Oui, beaucoup\"" },
+
+            { "value": "4", "label": "\"Ne peut pas du tout\"" }
+          ],
+          "response": { "name": "BRAS" }
+        },
+
+        {
+          "id": "kerbgriu",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 8. \" || cast(cast(prenom,string),string) || \" a-t-il/elle des difficultés pour se servir de ses mains ou de ses doigts (par exemple pour saisir un crayon ou utiliser des ciseaux) ? \"",
+          "declarations": [
+            {
+              "id": "kerbgriu-kerbebji",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Renseignez la difficulté la plus importante. Pour un enfant, indiquez par rapport aux autres enfants du même âge.\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "MAIN"],
+          "options": [
+            { "value": "1", "label": "\"Non, aucune\"" },
+
+            { "value": "2", "label": "\"Oui, un peu\"" },
+
+            { "value": "3", "label": "\"Oui, beaucoup\"" },
+
+            { "value": "4", "label": "\"Ne peut pas du tout\"" }
+          ],
+          "response": { "name": "MAIN" }
+        },
+
+        {
+          "id": "kerbvsyb",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 9. \" || cast(cast(prenom,string),string) || \" a-t-il/elle des difficultés pour se concentrer plus de 10 minutes ? \"",
+          "declarations": [
+            {
+              "id": "kerbvsyb-kerbnmj3",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Pour un enfant, indiquez par rapport aux autres enfants du même âge.\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "CONCENTRA"],
+          "options": [
+            { "value": "1", "label": "\"Non, aucune\"" },
+
+            { "value": "2", "label": "\"Oui, un peu\"" },
+
+            { "value": "3", "label": "\"Oui, beaucoup\"" },
+
+            { "value": "4", "label": "\"Ne peut pas du tout\"" }
+          ],
+          "response": { "name": "CONCENTRA" }
+        },
+
+        {
+          "id": "kerc3cf4",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 10. \" || cast(cast(prenom,string),string) || \" a-t-il/elle des difficultés pour prendre des décisions adaptées dans la vie de tous les jours ? \"",
+          "declarations": [
+            {
+              "id": "kerc3cf4-kerc3flo",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Pour un enfant, indiquez par rapport aux autres enfants du même âge.\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "DECISION"],
+          "options": [
+            { "value": "1", "label": "\"Non, aucune\"" },
+
+            { "value": "2", "label": "\"Oui, un peu\"" },
+
+            { "value": "3", "label": "\"Oui, beaucoup\"" },
+
+            { "value": "4", "label": "\"Ne peut pas du tout\"" }
+          ],
+          "response": { "name": "DECISION" }
+        },
+
+        {
+          "id": "kerbtdqa",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 11. \" || cast(cast(prenom,string),string) || \" a-t-il/elle des difficultés pour sortir de son logement ? \"",
+          "declarations": [
+            {
+              "id": "kerbtdqa-kerbxwk2",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Pour un enfant, indiquez par rapport aux autres enfants du même âge.\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "SORTIES"],
+          "options": [
+            { "value": "1", "label": "\"Non, aucune\"" },
+
+            { "value": "2", "label": "\"Oui, un peu\"" },
+
+            { "value": "3", "label": "\"Oui, beaucoup\"" },
+
+            { "value": "4", "label": "\"Ne peut pas du tout\"" }
+          ],
+          "response": { "name": "SORTIES" }
+        },
+
+        {
+          "id": "kerbtgyo",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 12. \" || cast(cast(prenom,string),string) || \" a-t-il/elle des difficultés pour comprendre les autres ou se faire comprendre des autres ? \"",
+          "declarations": [
+            {
+              "id": "kerbtgyo-kh4mvpj3",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Ne tenez pas compte des différences de langue.\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "COMPRENDRE"],
+          "options": [
+            { "value": "1", "label": "\"Non, aucune\"" },
+
+            { "value": "2", "label": "\"Oui, un peu\"" },
+
+            { "value": "3", "label": "\"Oui, beaucoup\"" },
+
+            { "value": "4", "label": "\"Ne peut pas du tout\"" }
+          ],
+          "response": { "name": "COMPRENDRE" }
+        },
+
+        {
+          "id": "kercar5k",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 13. \" || cast(cast(prenom,string),string) || \" a-t-il/elle des difficultés psychiques ou psychologiques qui perturbent sa vie quotidienne ? \"",
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "PSY"],
+          "options": [
+            { "value": "1", "label": "\"Non, aucune\"" },
+
+            { "value": "2", "label": "\"Oui, un peu\"" },
+
+            { "value": "3", "label": "\"Oui, beaucoup\"" }
+          ],
+          "response": { "name": "PSY" }
+        },
+
+        {
+          "id": "kerc3trw",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 14. \" || cast(cast(prenom,string),string) || \" a-t-il/elle déjà été hospitalisé(e) dans un service de psychiatrie (ou de pédopsychiatrie) au cours des 10 dernières années ? \"",
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "HPSY"],
+          "options": [
+            { "value": "1", "label": "\"Oui\"" },
+
+            { "value": "2", "label": "\"Non\"" }
+          ],
+          "response": { "name": "HPSY" }
+        },
+
+        {
+          "id": "kejyhnd2",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 15. En raison d’un problème de santé, d’un handicap ou d’une perte d’autonomie, \" || cast(cast(prenom,string),string) || \" reçoit-il/elle l’aide de professionnels (infirmier, aide-ménagère, etc.) dans la vie quotidienne ? \"",
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "AIDPRO"],
+          "options": [
+            { "value": "1", "label": "\"Oui\"" },
+
+            { "value": "2", "label": "\"Non\"" }
+          ],
+          "response": { "name": "AIDPRO" }
+        },
+
+        {
+          "id": "kercbo8b",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 16. En raison d’un problème de santé, d’un handicap ou d’une perte d’autonomie, \" || cast(cast(prenom,string),string) || \" reçoit-t-il/elle l’aide de proches (conjoint, parent, enfant, ami, etc.) dans la vie quotidienne ? \"",
+          "declarations": [
+            {
+              "id": "kercbo8b-kerc32v8",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Ces proches peuvent être payés pour cette aide.\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "AIDENT"],
+          "options": [
+            { "value": "1", "label": "\"Oui\"" },
+
+            { "value": "2", "label": "\"Non\"" }
+          ],
+          "response": { "name": "AIDENT" }
+        },
+
+        {
+          "id": "kerirz24",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 17. En raison d’un problème de santé, d’un handicap ou d’une perte d’autonomie, \" || cast(cast(prenom,string),string) || \" utilise-t-il/elle des équipements ou aménagements de son logement (douche adaptée, élargissement des portes, etc.) ? \"",
+          "declarations": [
+            {
+              "id": "kerirz24-kerimwmw",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Ce sont des transformations ou adaptations du logement qui ne sont pas déplaçables.\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "AMENALOG"],
+          "options": [
+            { "value": "1", "label": "\"Oui\"" },
+
+            { "value": "2", "label": "\"Non\"" }
+          ],
+          "response": { "name": "AMENALOG" }
+        },
+
+        {
+          "id": "kerimtev",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 18. En raison d’un problème de santé, d’un handicap ou d’une perte d’autonomie, \" || cast(cast(prenom,string),string) || \" utilise-t-il/elle régulièrement une aide technique (canne, loupe électronique, etc.), un appareillage ou une prothèse ? \"",
+          "declarations": [
+            {
+              "id": "kerimtev-kerizys4",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Ne tenez pas compte des lunettes, lentilles, dentiers ou prothèses dentaires.\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "AIDTECH"],
+          "options": [
+            { "value": "1", "label": "\"Oui\"" },
+
+            { "value": "2", "label": "\"Non\"" }
+          ],
+          "response": { "name": "AIDTECH" }
+        },
+
+        {
+          "id": "keriy3hi",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 19. \" || cast(cast(prenom,string),string) || \" considère-t-il/elle avoir un handicap ? \"",
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "HANDICAP"],
+          "options": [
+            { "value": "1", "label": "\"Oui\"" },
+
+            { "value": "2", "label": "\"Non\"" }
+          ],
+          "response": { "name": "HANDICAP" }
+        },
+
+        {
+          "id": "keriygan",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 20. \" || cast(cast(prenom,string),string) || \" a-t-il/elle une reconnaissance administrative d’un handicap ou d’une perte d’autonomie (pension d’invalidité, carte mobilité inclusion, accord MDPH, allocations - APA, AAH, AEEH, PCH, etc. -, orientation vers un établissement spécialisé, etc.) ? \"",
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "RECONNAI"],
+          "options": [
+            { "value": "1", "label": "\"Oui\"" },
+
+            { "value": "2", "label": "\"Non\"" }
+          ],
+          "response": { "name": "RECONNAI" }
+        },
+
+        {
+          "id": "kerj7jca",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 21. En raison d’un problème de santé ou d’un handicap, \" || cast(cast(prenom,string),string) || \" a-t-il/elle des difficultés d’apprentissage et/ou des difficultés à accomplir des activités quotidiennes que font habituellement les enfants de son âge ? \"",
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "APPRENT"],
+          "options": [
+            { "value": "1", "label": "\"Non, aucune\"" },
+
+            { "value": "2", "label": "\"Oui, un peu\"" },
+
+            { "value": "3", "label": "\"Oui, beaucoup\"" }
+          ],
+          "response": { "name": "APPRENT" }
+        },
+
+        {
+          "id": "kejysu8y",
+          "componentType": "CheckboxGroup",
+          "page": "3.1",
+          "label": "\"➡ 22. \" || cast(cast(prenom,string),string) || \" apporte-t-il/elle une aide régulière à un proche en situation de handicap ou de perte d’autonomie vivant dans ce logement ou ailleurs ? \"",
+          "declarations": [
+            {
+              "id": "kejysu8y-kh9c2bm3",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Plusieurs réponses sont possibles.\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": [
+            "prenom",
+            "AIDREG_A",
+            "AIDREG_B",
+            "AIDREG_C",
+            "AIDREG_D"
+          ],
+          "responses": [
+            {
+              "id": "kejysu8y-QOP-khq4woeg",
+              "label": "\"Oui, une aide aux activités de la vie quotidienne\"",
+              "response": { "name": "AIDREG_A" }
+            },
+
+            {
+              "id": "kejysu8y-QOP-khq505hy",
+              "label": "\"Oui, un soutien moral\"",
+              "response": { "name": "AIDREG_B" }
+            },
+
+            {
+              "id": "kejysu8y-QOP-khq4x76p",
+              "label": "\"Oui, une aide financière\"",
+              "response": { "name": "AIDREG_C" }
+            },
+
+            {
+              "id": "kejysu8y-QOP-khq4muqa",
+              "label": "\"Non\"",
+              "response": { "name": "AIDREG_D" }
+            }
+          ]
+        },
+
+        {
+          "id": "kerjiih4",
+          "componentType": "CheckboxGroup",
+          "page": "3.1",
+          "label": "\"➡ 23. Avec qui \" || cast(cast(prenom,string),string) || \" habite-t-il/elle ? \"",
+          "declarations": [
+            {
+              "id": "kerjiih4-kh9c0l5n",
+              "declarationType": "INSTRUCTION",
+              "position": "AFTER_QUESTION_TEXT",
+              "label": "\"Plusieurs réponses sont possibles\""
+            }
+          ],
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": [
+            "prenom",
+            "RELATION1",
+            "RELATION2",
+            "RELATION3"
+          ],
+          "responses": [
+            {
+              "id": "kerjiih4-QOP-khq4zcqe",
+              "label": "\"Son/sa conjoint(e)\"",
+              "response": { "name": "RELATION1" }
+            },
+
+            {
+              "id": "kerjiih4-QOP-khq4sllr",
+              "label": "\"Un enfant ou bel-enfant\"",
+              "response": { "name": "RELATION2" }
+            },
+
+            {
+              "id": "kerjiih4-QOP-khq52jmn",
+              "label": "\"Un parent ou un beau-parent\"",
+              "response": { "name": "RELATION3" }
+            }
+          ]
+        },
+
+        {
+          "id": "kerj5ll8",
+          "componentType": "Radio",
+          "mandatory": false,
+          "page": "3.1",
+          "label": "\"➡ 24. \" || cast(cast(prenom,string),string) || \" habitait-il/elle en France au 1er janvier 2019 ? \"",
+          "conditionFilter": "\"normal\"",
+          "hierarchy": {
+            "sequence": {
+              "id": "kejydb2m",
+              "page": "3.1",
+              "label": "\"III - État de santé de \" || cast(cast(prenom,string),string) || \" \""
+            }
+          },
+          "bindingDependencies": ["prenom", "RESIDANCIEN"],
+          "options": [
+            { "value": "1", "label": "\"Oui\"" },
+
+            { "value": "2", "label": "\"Non\"" }
+          ],
+          "response": { "name": "RESIDANCIEN" }
+        }
+      ]
+    },
+
+    {
+      "id": "kfmqhl12",
+      "componentType": "Sequence",
+      "page": "4",
+      "label": "\"IV - Fin\"",
+      "declarations": [
+        {
+          "id": "kfmqhl12-kfmqi33j",
+          "declarationType": "INSTRUCTION",
+          "position": "AFTER_QUESTION_TEXT",
+          "label": "\"Merci d’avoir accepté de répondre\""
+        }
+      ],
+      "conditionFilter": "\"normal\"",
+      "hierarchy": {
+        "sequence": { "id": "kfmqhl12", "page": "4", "label": "\"IV - Fin\"" }
+      }
+    }
+  ],
+  "variables": [
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_1_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_1_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_2_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_2_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_3_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_3_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_4_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_4_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_5_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_5_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_6_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_6_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_7_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_7_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_8_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_8_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_9_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_9_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_10_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_10_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_11_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_11_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_12_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_12_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_13_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_13_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_14_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_14_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_15_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_15_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_16_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_16_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_17_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_17_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_18_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_18_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_19_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_19_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1_20_1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2_20_2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    { "variableType": "EXTERNAL", "name": "LIBCONTACT", "value": null },
+
+    { "variableType": "EXTERNAL", "name": "ADRESSE", "value": null },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "OKADRESS",
+      "componentRef": "kejxy84t",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "RESIDM",
+      "componentRef": "ker5lx5h",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "NVOI",
+      "componentRef": "kfpub47i",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "NVOIC",
+      "componentRef": "kgw2gyze",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "NLIB",
+      "componentRef": "kgw1qalj",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "NCOMP",
+      "componentRef": "kgw22pxh",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "NCODPOS",
+      "componentRef": "kgw2dgqu",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "NCOMMU",
+      "componentRef": "kgam8uff",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL1",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "THL2",
+      "componentRef": "kkf5nk82",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "NHAB",
+      "componentRef": "kejymd3m",
+      "values": {
+        "PREVIOUS": null,
+        "COLLECTED": null,
+        "FORCED": null,
+        "EDITED": null,
+        "INPUTED": null
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "prenom",
+      "componentRef": "kiuclpdh",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "NOM",
+      "componentRef": "kiuclpdh",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "SEXE",
+      "componentRef": "kiuclpdh",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "DTNAIS",
+      "componentRef": "kiuclpdh",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "ETAT_SANT",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "MAL_CHRO",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "LIMITAT",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "VUE",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "AUDITIF",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "MARCHE",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "BRAS",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "MAIN",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "CONCENTRA",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "DECISION",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "SORTIES",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "COMPRENDRE",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "PSY",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "HPSY",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "AIDPRO",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "AIDENT",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "AMENALOG",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "AIDTECH",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "HANDICAP",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "RECONNAI",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "APPRENT",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "AIDREG_A",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "AIDREG_B",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "AIDREG_C",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "AIDREG_D",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "RELATION1",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "RELATION2",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "RELATION3",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "COLLECTED",
+      "name": "RESIDANCIEN",
+      "componentRef": "kiucta33",
+      "values": {
+        "PREVIOUS": [null],
+        "COLLECTED": [null],
+        "FORCED": [null],
+        "EDITED": [null],
+        "INPUTED": [null]
+      }
+    },
+
+    {
+      "variableType": "CALCULATED",
+      "name": "prenomok",
+      "expression": "if (cast(prenom,string) = \"\") then 0 else 1"
+    },
+
+    {
+      "variableType": "CALCULATED",
+      "name": "nbprenom",
+      "expression": "sum(cast(prenomok,number) )"
+    }
+  ]
+}
