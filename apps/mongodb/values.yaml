@@ -14,6 +14,13 @@ metrics:
   enabled: true
   image:
     tag: 0.11.2-debian-10-r393
+ resources:
+    limits:
+      cpu: "2.2"
+      memory: "6Gi"
+    requests:
+      cpu: "2"
+      memory: "4Gi"
 tolerations:   
     - key: "metallica"
       operator: "Equal"
