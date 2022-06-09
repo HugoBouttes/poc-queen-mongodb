@@ -1,16 +1,18 @@
+import http from 'k6/http';
+import { check, sleep } from 'k6';
+
+
+
 export const options = {
   stages: [
-    { duration: "20m", target: `${__ENV.VUS}` }, // simulate ramp-up of traffic from 1 to ${__ENV.VUS} users over 20 minutes.
-    { duration: "60m", target: `${__ENV.VUS}` }, // stay at ${__ENV.VUS} users for 60m minutes
-    { duration: "20m", target: 0 }, // ramp-down to 0 users over 20 minutes
+    { duration: "30s", target: 20 }, // simulate ramp-up of traffic from 1 to ${__ENV.VUS} users over 20 minutes.
+    { duration: "1m30s", target: 20 }, // stay at ${__ENV.VUS} users for 60m minutes
+    { duration: "20s", target: 0 }, // ramp-down to 0 users over 20 minutes
   ],
   //vus: 1,
   //iterations: 1,
   //duration: "3600s",
   setupTimeout: "300s",
-  tags: {
-    scenario: `${__ENV.VUS}-${__ENV.HOSTNAME}`,
-  },
 };
 
 const nbQuestions = 70;
@@ -24,27 +26,27 @@ function safeGet(url, parse = true) {
   return parse ? JSON.parse(body) : body;
 }
 
-//function iterativeGet(urlPattern, how) {
-//  return new Array(how).fill(0).map(function (_, i) {
-//    return safeGet(urlPattern.replace("${ITER}", i), false);
-//  });
-//}
+function iterativeGet(urlPattern, how) {
+  return new Array(how).fill(0).map(function (_, i) {
+    return safeGet(urlPattern.replace("${ITER}", i), false);
+  });
+}
 
 
 export function setup() {
 
   const idCampaign = "VQS2021X00";
 
-  const length = `${__ENV.VUS}` * iterMax;
+  const length = 20 * iterMax;
   const arrIdSurveyUnit = Array.from({length: length}, (_, i) => i + 1).map(idUe => idCampaign+idUe);
 
   const arrData = iterativeGet(
-    "https://minio.lab.sspcloud.fr/io1h80/dataset-poc-mongo/data-${ITER}.json",
+    "https://raw.githubusercontent.com/BouttesINSEE/poc-queen-mongodb/main/load-test/Data/Data.json",
     nbQuestions
   );
 
   const arrParadata = iterativeGet(
-    "https://minio.lab.sspcloud.fr/io1h80/dataset-poc-mongo/paradata-${ITER}.json",
+    "https://raw.githubusercontent.com/BouttesINSEE/poc-queen-mongodb/main/load-test/Data/Paradata.json",
     nbQuestions
   );
 
@@ -56,27 +58,29 @@ export function setup() {
   };
 }
 
-export default function (data) {
+export default function () {
   /****Init : get model, metadata and nomenclatures****/
   group("Init questionnaire", function () {
     const { idCampaign } = data;
 
     const res = http.get(
-      `${__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/campaign/${idCampaign}/questionnaire`
+      `http://localhost:8080/swagger-ui/index.html#//api/campaign/${idCampaign}/questionnaire`
     );
+
+    http://localhost:8080/swagger-ui/index.html#/
     check(res, {
       "status 200 get questionnaire model": (r) => r.status === 200,
     });
 
     const res2 = http.get(
-      `${__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/campaign/${idCampaign}/metadata`
+      `http://localhost:8080/swagger-ui/index.html#/api/campaign/${idCampaign}/metadata`
     );
     check(res2, {
       "status 200 get campaign metadata": (r) => r.status === 200,
     });
 
     const res3 = http.get(
-      `${__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/campaign/${idCampaign}/required-nomenclatures`
+      `http://localhost:8080/swagger-ui/index.html#/api/campaign/${idCampaign}/required-nomenclatures`
     );
     check(res3, {
       "status 200 get required-nomenclatures": (r) => r.status === 200,
@@ -84,15 +88,15 @@ export default function (data) {
 
     res3.json().forEach(function (elt) {
       const res4 = http.get(
-        `${__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/nomenclature/${elt}`
+        `http://localhost:8080/swagger-ui/index.html#/api/nomenclature/${elt}`
       );
       check(res4, { "status 200 get nomenclature": (r) => r.status === 200 });
     });
   });
 
-  /****Filling out questionnaire and paradata****/
+  /****Filling out questionnaire and paradata
   group("Filling out questionnaire", function () {
-    const currentId = (__VU - 1) * iterMax + __ITER
+    const currentId = (20 - 1) * iterMax + __ITER
     const idSurveyUnit = data.arrIdSurveyUnit[currentId];
 
     function fillingOutQuestions(end, current = 0) {
@@ -103,14 +107,14 @@ export default function (data) {
         const params = { headers: { "Content-type": "application/json" } };
 
         const res5 = http.put(
-          `${__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/survey-unit/${idSurveyUnit}/data`,
+          `http://localhost:8080/swagger-ui/index.html#/api/survey-unit/${idSurveyUnit}/data`,
           iterationData,
           params
         );
         check(res5, { "status 200 put": (r) => r.status === 200 });
 
         const res6 = http.post(
-          `${__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/paradata`,
+          `http://localhost:8080/swagger-ui/index.html#/api/paradata`,
           iterationParadata,
           params
         );
@@ -121,7 +125,6 @@ export default function (data) {
         fillingOutQuestions(end, current + 1);
       }
     }
-
     fillingOutQuestions(data.arrData.length);
-  });
+  }); ****/
 }
