@@ -94,7 +94,7 @@ export default function () {
     });
   });
 
-  /****Filling out questionnaire and paradata
+  /****Filling out questionnaire and paradata****/
   group("Filling out questionnaire", function () {
     const currentId = (20 - 1) * iterMax + __ITER
     const idSurveyUnit = data.arrIdSurveyUnit[currentId];
@@ -126,5 +126,5 @@ export default function () {
       }
     }
     fillingOutQuestions(data.arrData.length);
-  }); ****/
+  }); 
 }
