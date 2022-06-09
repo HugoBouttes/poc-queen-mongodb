@@ -64,7 +64,7 @@ export default function () {
     const { idCampaign } = data;
 
     const res = http.get(
-      `https://demoqueenmongo.dev.insee.io/swagger-ui/index.html#//api/campaign/${idCampaign}/questionnaire`
+      `https://demoqueenmongo.dev.insee.io/api/campaign/${idCampaign}/questionnaire`
     );
 
     http://localhost:8080/swagger-ui/index.html#/
@@ -73,14 +73,14 @@ export default function () {
     });
 
     const res2 = http.get(
-      `https://demoqueenmongo.dev.insee.io/swagger-ui/index.html#/api/campaign/${idCampaign}/metadata`
+      `https://demoqueenmongo.dev.insee.io/api/campaign/${idCampaign}/metadata`
     );
     check(res2, {
       "status 200 get campaign metadata": (r) => r.status === 200,
     });
 
     const res3 = http.get(
-      `https://demoqueenmongo.dev.insee.io/swagger-ui/index.html#/api/campaign/${idCampaign}/required-nomenclatures`
+      `https://demoqueenmongo.dev.insee.io/api/campaign/${idCampaign}/required-nomenclatures`
     );
     check(res3, {
       "status 200 get required-nomenclatures": (r) => r.status === 200,
@@ -88,7 +88,7 @@ export default function () {
 
     res3.json().forEach(function (elt) {
       const res4 = http.get(
-        `https://demoqueenmongo.dev.insee.io/swagger-ui/index.html#/api/nomenclature/${elt}`
+        `https://demoqueenmongo.dev.insee.io/api/nomenclature/${elt}`
       );
       check(res4, { "status 200 get nomenclature": (r) => r.status === 200 });
     });
@@ -107,14 +107,14 @@ export default function () {
         const params = { headers: { "Content-type": "application/json" } };
 
         const res5 = http.put(
-          `https://demoqueenmongo.dev.insee.io/swagger-ui/index.html#/api/survey-unit/${idSurveyUnit}/data`,
+          `https://demoqueenmongo.dev.insee.io/api/survey-unit/${idSurveyUnit}/data`,
           iterationData,
           params
         );
         check(res5, { "status 200 put": (r) => r.status === 200 });
 
         const res6 = http.post(
-          `https://demoqueenmongo.dev.insee.io/swagger-ui/index.html#/api/paradata`,
+          `https://demoqueenmongo.dev.insee.io/api/paradata`,
           iterationParadata,
           params
         );
