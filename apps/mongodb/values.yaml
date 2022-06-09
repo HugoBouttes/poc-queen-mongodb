@@ -26,3 +26,20 @@ tolerations:
       operator: "Equal"
       value: "perf"
       effect: "NoSchedule"   
+  initContainers:
+    - name: import-dump
+      image: busybox
+      env:
+        - name: DUMP_URI
+          value: https://io1h80.minio.lab.sspcloud.fr/diffusion/dump.zip
+      command: [ sh, -c ]
+      args:
+        [
+          "wget $DUMP_URI --output-document=/import/dump.zip
+          && unzip /import/dump.zip -d /import
+          && echo 'mongorestore --uri \"mongodb://$mongo_user:$mongo_pass@localhost:27017\" --drop 
+          --authenticationDatabase admin /docker-entrypoint-initdb.d/dump/' > /import/import.sh"
+        ]
+      volumeMounts:
+        - mountPath: /import
+          name: import-volume
