@@ -35,7 +35,7 @@ function iterativeGet(urlPattern, how) {
 
 export function setup() {
 
-  const idCampaign = "VQS2021X00";
+  const idCampaign = "kwi5uegy3101";
 
   const length = 20 * iterMax;
   
