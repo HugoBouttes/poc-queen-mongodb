@@ -38,6 +38,8 @@ export function setup() {
   const idCampaign = "VQS2021X00";
 
   const length = 20 * iterMax;
+  
+  /** on génère plus mais on prend ce qu'on a généré**/ 
   const arrIdSurveyUnit = Array.from({length: length}, (_, i) => i + 1).map(idUe => idCampaign+idUe);
 
   const arrData = iterativeGet(
@@ -67,7 +69,6 @@ export default function () {
       `https://demoqueenmongo.dev.insee.io/api/campaign/${idCampaign}/questionnaire`
     );
 
-    http://localhost:8080/swagger-ui/index.html#/
     check(res, {
       "status 200 get questionnaire model": (r) => r.status === 200,
     });
@@ -98,7 +99,7 @@ export default function () {
   group("Filling out questionnaire", function () {
     const currentId = (20 - 1) * iterMax + __ITER
     const idSurveyUnit = data.arrIdSurveyUnit[currentId];
-
+    /** changer boucle avec l ened */
     function fillingOutQuestions(end, current = 0) {
       if (current < end) {
         const iterationData = data.arrData[current];
@@ -114,12 +115,12 @@ export default function () {
         check(res5, { "status 200 put": (r) => r.status === 200 });
 
         const res6 = http.post(
-          `https://demoqueenmongo.dev.insee.io/api/paradata`,
+          `https://demoqueenmongo.dev.insee.io/api/paradata`, /* pioche dedans et random(2,10) */
           iterationParadata,
           params
         );
         check(res6, { "status 200 post": (r) => r.status === 200 });
-
+            /*rajouter les PUT/ state-data incrémenation de la page de 1 */
         sleep(3 + Math.random() * 7);
 
         fillingOutQuestions(end, current + 1);
