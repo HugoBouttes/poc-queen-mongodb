@@ -54,9 +54,8 @@ grafana:
         - name: Prometheus
           type: prometheus
           url: http://my-prometheus-server
-  tolerations:   
-    - key: "demo"
+tolerations:   
+    - key: "metallica"
       operator: "Equal"
       value: "perf"
       effect: "NoSchedule"
-

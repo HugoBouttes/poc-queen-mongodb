@@ -2,8 +2,8 @@ influxdb:
   env:
     - name: INFLUXDB_DB
       value: "k6"
-  tolerations:   
-    - key: "demo"
+tolerations:   
+    - key: "metallica"
       operator: "Equal"
       value: "perf"
       effect: "NoSchedule"

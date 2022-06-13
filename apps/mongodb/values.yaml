@@ -25,7 +25,7 @@ tolerations:
     - key: "metallica"
       operator: "Equal"
       value: "perf"
-      effect: "NoSchedule"   
+      effect: "NoSchedule"
   initContainers:
     - name: import-dump
       image: busybox

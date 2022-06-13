@@ -35,3 +35,8 @@ prometheus:
             static_configs:
             - targets:
               - my-mongodb-metrics:9216
+tolerations:   
+    - key: "metallica"
+      operator: "Equal"
+      value: "perf"
+      effect: "NoSchedule"
