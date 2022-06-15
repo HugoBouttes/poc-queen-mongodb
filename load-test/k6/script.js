@@ -119,8 +119,17 @@ export default function (data) {
         const iterationStateData = data.arrStateData[current];
 
         const iterationData = iterationData.concat(iterationData2);
+        
+        const r = 2 + getRandomInt(8);
 
-        for 
+        for (let i = 0; i < r; i++) {
+          const res6 = http.post(
+            `https://demoqueenmongo.dev.insee.io/api/paradata`, /* pioche dedans et random(2,10) */
+            iterationParadata,
+            params
+          );
+          check(res6, { "status 200 post": (r) => r.status === 200 });
+        }
 
 
 
@@ -141,12 +150,7 @@ export default function (data) {
         check(res7, { "status 200 put": (r) => r.status === 200 });
 
 
-        const res6 = http.post(
-          `https://demoqueenmongo.dev.insee.io/api/paradata`, /* pioche dedans et random(2,10) */
-          iterationParadata,
-          params
-        );
-        check(res6, { "status 200 post": (r) => r.status === 200 });
+        
         sleep(3 + Math.random() * 7);
 
         fillingOutQuestions(end, current + 1);
