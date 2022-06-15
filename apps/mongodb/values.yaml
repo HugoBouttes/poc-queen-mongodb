@@ -1,27 +1,26 @@
-architecture: replicaset
-arbiter:
-  enabled: false
-replicaCount : 3
-auth:
-  rootPassword: demo
-  databases:
-    - poc
-  usernames:
-    - demo
-  passwords:
-    - demo
-metrics:
-  enabled: true
-  image:
-    tag: 0.11.2-debian-10-r393
- resources:
+mongodb:
+  architecture: replicaset
+  arbiter:
+    enabled: false
+  replicaCount: 3
+  auth:
+    username: demo
+    database: poc
+    #existingSecret: mongodb-secret
+  rbac:
+    create: true
+  metrics:
+    enabled: true
+    image:
+      tag: 0.11.2-debian-10-r393
+  resources:
     limits:
       cpu: "2.2"
       memory: "6Gi"
     requests:
       cpu: "2"
       memory: "4Gi"
-tolerations:   
+  tolerations:   
     - key: "metallica"
       operator: "Equal"
       value: "perf"
@@ -31,7 +30,7 @@ tolerations:
       image: busybox
       env:
         - name: DUMP_URI
-          value: https://minio.lab.sspcloud.fr/hbouttes/dump.zip
+          value: https://minio.lab.sspcloud.fr/hbouttes/dump.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=V040Q7N3950KA5SWN60K%2F20220614%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220614T223807Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJWMDQwUTdOMzk1MEtBNVNXTjYwSyIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sImF1ZCI6WyJtaW5pby1kYXRhbm9kZSIsIm9ueXhpYSIsImFjY291bnQiXSwiYXV0aF90aW1lIjoxNjU1MjQ1ODA0LCJhenAiOiJvbnl4aWEiLCJlbWFpbCI6Imh1Z28uYm91dHRlc0BpbnNlZS5mciIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJleHAiOjE2NTUzMzIzNzUsImZhbWlseV9uYW1lIjoiQm91dHRlcyIsImdpdmVuX25hbWUiOiJIdWdvIiwiZ3JvdXBzIjpbXSwiaWF0IjoxNjU1MjQ1OTc0LCJpc3MiOiJodHRwczovL2F1dGgubGFiLnNzcGNsb3VkLmZyL2F1dGgvcmVhbG1zL3NzcGNsb3VkIiwianRpIjoiODJhOTVmZTAtOGNkMy00ZWMyLTgxYWItZWM2NTBhYWZkNzcwIiwibmFtZSI6Ikh1Z28gQm91dHRlcyIsIm5vbmNlIjoiZTNmNTc0ZjMtZjQ1MS00ZDY2LThkMzUtZjlmMmY4NjMzYWJiIiwicG9saWN5Ijoic3Rzb25seSIsInByZWZlcnJlZF91c2VybmFtZSI6Imhib3V0dGVzIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLXNzcGNsb3VkIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBncm91cHMgZW1haWwiLCJzZXNzaW9uX3N0YXRlIjoiMzllMDNhN2ItYzI2Ni00MzUwLWE4OTYtOTRlOWZiZjhmZTFjIiwic2lkIjoiMzllMDNhN2ItYzI2Ni00MzUwLWE4OTYtOTRlOWZiZjhmZTFjIiwic3ViIjoiYmJiNzhkNDQtMTY1MS00MWIxLTlkNGMtZjZlOGZjN2VlMmU2IiwidHlwIjoiQmVhcmVyIn0.AedbRWQw0EUWprevqxkwpPoVsQ_v9r1TdF6Dy14Whxq0STI0aFjHjfIzd4G_D1OSlXJU6OBmWQKSBySyRadFPA&X-Amz-Signature=5ee2386cf886d80584441f1b7291b5a230c60210d38e39c7f531f7595a9b75b1&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJWMDQwUTdOMzk1MEtBNVNXTjYwSyIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sImF1ZCI6WyJtaW5pby1kYXRhbm9kZSIsIm9ueXhpYSIsImFjY291bnQiXSwiYXV0aF90aW1lIjoxNjU1MjQ1ODA0LCJhenAiOiJvbnl4aWEiLCJlbWFpbCI6Imh1Z28uYm91dHRlc0BpbnNlZS5mciIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJleHAiOjE2NTUzMzIzNzUsImZhbWlseV9uYW1lIjoiQm91dHRlcyIsImdpdmVuX25hbWUiOiJIdWdvIiwiZ3JvdXBzIjpbXSwiaWF0IjoxNjU1MjQ1OTc0LCJpc3MiOiJodHRwczovL2F1dGgubGFiLnNzcGNsb3VkLmZyL2F1dGgvcmVhbG1zL3NzcGNsb3VkIiwianRpIjoiODJhOTVmZTAtOGNkMy00ZWMyLTgxYWItZWM2NTBhYWZkNzcwIiwibmFtZSI6Ikh1Z28gQm91dHRlcyIsIm5vbmNlIjoiZTNmNTc0ZjMtZjQ1MS00ZDY2LThkMzUtZjlmMmY4NjMzYWJiIiwicG9saWN5Ijoic3Rzb25seSIsInByZWZlcnJlZF91c2VybmFtZSI6Imhib3V0dGVzIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLXNzcGNsb3VkIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBncm91cHMgZW1haWwiLCJzZXNzaW9uX3N0YXRlIjoiMzllMDNhN2ItYzI2Ni00MzUwLWE4OTYtOTRlOWZiZjhmZTFjIiwic2lkIjoiMzllMDNhN2ItYzI2Ni00MzUwLWE4OTYtOTRlOWZiZjhmZTFjIiwic3ViIjoiYmJiNzhkNDQtMTY1MS00MWIxLTlkNGMtZjZlOGZjN2VlMmU2IiwidHlwIjoiQmVhcmVyIn0.AedbRWQw0EUWprevqxkwpPoVsQ_v9r1TdF6Dy14Whxq0STI0aFjHjfIzd4G_D1OSlXJU6OBmWQKSBySyRadFPA
       command: [ sh, -c ]
       args:
         [
@@ -43,3 +42,12 @@ tolerations:
       volumeMounts:
         - mountPath: /import
           name: import-volume
+
+  extraVolumes:
+    - name: import-volume
+      emptyDir: {}
+
+  extraVolumeMounts:
+    - name: import-volume
+      mountPath: "/docker-entrypoint-initdb.d"
+          
