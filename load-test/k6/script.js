@@ -18,19 +18,14 @@ export const options = {
 const nbQuestions = 70;
 const iterMax = 20;
 
-function safeGet(url, parse = true) {
+function safeGet(url) {
   const { status, body } = http.get(url);
   if (status != 200) {
     throw new Error(`Setup failed : GET ${url} ${status}`);
   }
-  return parse ? JSON.parse(body) : body;
+  return  JSON.parse(body);
 }
 
-function iterativeGet(urlPattern, how) {
-  return new Array(how).fill(0).map(function (_, i) {
-    return safeGet(urlPattern.replace("${ITER}", i), false);
-  });
-}
 
 
 export function setup() {
@@ -40,16 +35,22 @@ export function setup() {
   const length = 20 * iterMax;
   
   /** on génère plus mais on prend ce qu'on a généré**/ 
-  const arrIdSurveyUnit = Array.from({length: length}, (_, i) => i + 1).map(idUe => idCampaign+idUe);
+  
+  /**const arrIdSurveyUnit = safeGet(
+    "https://raw.githubusercontent.com/BouttesINSEE/poc-queen-mongodb/main/load-test/Data/Data.json"
+  ); **/
 
-  const arrData = iterativeGet(
-    "https://raw.githubusercontent.com/BouttesINSEE/poc-queen-mongodb/main/load-test/Data/Data.json",
-    nbQuestions
+  const arrData = safeGet(
+    "https://raw.githubusercontent.com/BouttesINSEE/poc-queen-mongodb/main/load-test/Data/Data.json"
   );
 
-  const arrParadata = iterativeGet(
-    "https://raw.githubusercontent.com/BouttesINSEE/poc-queen-mongodb/main/load-test/Data/Paradata.json",
-    nbQuestions
+  const arrParadata = safeGet(
+    "https://raw.githubusercontent.com/BouttesINSEE/poc-queen-mongodb/main/load-test/Data/Paradata.json"
+  );
+
+
+  const arrStateData = safeGet(
+    "https://raw.githubusercontent.com/BouttesINSEE/poc-queen-mongodb/main/load-test/Data/State-Data.json"
   );
 
   return {
@@ -60,7 +61,7 @@ export function setup() {
   };
 }
 
-export default function () {
+export default function (data) {
   /****Init : get model, metadata and nomenclatures****/
   group("Init questionnaire", function () {
     const { idCampaign } = data;
@@ -95,11 +96,13 @@ export default function () {
     });
   });
 
+
+
   /****Filling out questionnaire and paradata****/
   group("Filling out questionnaire", function () {
     const currentId = (20 - 1) * iterMax + __ITER
     const idSurveyUnit = data.arrIdSurveyUnit[currentId];
-    /** changer boucle avec l ened */
+    const end = 70;
     function fillingOutQuestions(end, current = 0) {
       if (current < end) {
         const iterationData = data.arrData[current];

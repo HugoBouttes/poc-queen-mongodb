@@ -31,7 +31,7 @@ tolerations:
       image: busybox
       env:
         - name: DUMP_URI
-          value: https://io1h80.minio.lab.sspcloud.fr/diffusion/dump.zip
+          value: https://minio.lab.sspcloud.fr/hbouttes/dump.zip
       command: [ sh, -c ]
       args:
         [
