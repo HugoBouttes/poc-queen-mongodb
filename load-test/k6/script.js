@@ -64,7 +64,7 @@ export function setup() {
 export default function (data) {
   /****Init : get model, metadata and nomenclatures****/
   group("Init questionnaire", function () {
-    const { idCampaign } = data;
+    const { idCampaign } = data.idCampaign;
 
     const res = http.get(
       `https://demoqueenmongo.dev.insee.io/api/campaign/${idCampaign}/questionnaire`
@@ -105,8 +105,16 @@ export default function (data) {
     const end = 70;
     function fillingOutQuestions(end, current = 0) {
       if (current < end) {
-        const iterationData = data.arrData[current];
+
+        const iterationData = data.arrData[current] ;
         const iterationParadata = data.arrParadata[current];
+
+        /**for (var i = 0; i < current ; i++) {
+          var counter = data.arrData[i];
+          iterationData = iterationData + counter;
+          } **/
+
+        const iterationStateData = data.arrStateData[current];
 
         const params = { headers: { "Content-type": "application/json" } };
 
@@ -117,13 +125,20 @@ export default function (data) {
         );
         check(res5, { "status 200 put": (r) => r.status === 200 });
 
+        const res7 = http.put(
+          `https://demoqueenmongo.dev.insee.io/api/survey-unit/${idSurveyUnit}/state-data`,
+          iterationStateData,
+          params
+        );
+        check(res7, { "status 200 put": (r) => r.status === 200 });
+
+
         const res6 = http.post(
           `https://demoqueenmongo.dev.insee.io/api/paradata`, /* pioche dedans et random(2,10) */
           iterationParadata,
           params
         );
         check(res6, { "status 200 post": (r) => r.status === 200 });
-            /*rajouter les PUT/ state-data incrémenation de la page de 1 */
         sleep(3 + Math.random() * 7);
 
         fillingOutQuestions(end, current + 1);
