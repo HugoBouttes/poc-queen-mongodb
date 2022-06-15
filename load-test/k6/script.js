@@ -103,10 +103,12 @@ export default function (data) {
     const currentId = (20 - 1) * iterMax + __ITER
     const idSurveyUnit = data.arrIdSurveyUnit[currentId];
     const end = 70;
+
+    const iterationData = [];
     function fillingOutQuestions(end, current = 0) {
       if (current < end) {
 
-        const iterationData = data.arrData[current] ;
+        const iterationData2 = data.arrData[current] ;
         const iterationParadata = data.arrParadata[current];
 
         /**for (var i = 0; i < current ; i++) {
@@ -115,6 +117,12 @@ export default function (data) {
           } **/
 
         const iterationStateData = data.arrStateData[current];
+
+        const iterationData = iterationData.concat(iterationData2);
+
+        for 
+
+
 
         const params = { headers: { "Content-type": "application/json" } };
 
