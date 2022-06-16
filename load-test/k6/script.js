@@ -36,21 +36,18 @@ export function setup() {
   
   /** on génère plus mais on prend ce qu'on a généré**/ 
   
-  /**const arrIdSurveyUnit = safeGet(
-    "https://raw.githubusercontent.com/BouttesINSEE/poc-queen-mongodb/main/load-test/Data/Data.json"
-  ); **/
 
   const arrData = safeGet(
-    "https://raw.githubusercontent.com/BouttesINSEE/poc-queen-mongodb/main/load-test/Data/Data.json"
+    "https://minio.lab.sspcloud.fr/hbouttes/Data.json"
   );
 
   const arrParadata = safeGet(
-    "https://raw.githubusercontent.com/BouttesINSEE/poc-queen-mongodb/main/load-test/Data/Paradata.json"
+    "https://minio.lab.sspcloud.fr/hbouttes/Paradata.json"
   );
 
 
   const arrStateData = safeGet(
-    "https://raw.githubusercontent.com/BouttesINSEE/poc-queen-mongodb/main/load-test/Data/State-Data.json"
+    "https://minio.lab.sspcloud.fr/hbouttes/State-Data.json"
   );
 
   return {
@@ -107,7 +104,7 @@ export default function (data) {
     const iterationData = [];
     function fillingOutQuestions(end, current = 0) {
       if (current < end) {
-
+        const idSurveyUnit = current;
         const iterationData2 = data.arrData[current] ;
         const iterationParadata = data.arrParadata[current];
 
