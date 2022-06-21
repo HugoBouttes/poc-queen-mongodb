@@ -5,9 +5,9 @@ import { check, sleep } from 'k6';
 
 export const options = {
   stages: [
-    { duration: "30s", target: 20 }, // simulate ramp-up of traffic from 1 to ${__ENV.VUS} users over 20 minutes.
-    { duration: "1m30s", target: 20 }, // stay at ${__ENV.VUS} users for 60m minutes
-    { duration: "20s", target: 0 }, // ramp-down to 0 users over 20 minutes
+    { duration: "5s", target: 20 }, // simulate ramp-up of traffic from 1 to ${__ENV.VUS} users over 20 minutes.
+    { duration: "1ms", target: 20 }, // stay at ${__ENV.VUS} users for 60m minutes
+    { duration: "5s", target: 0 }, // ramp-down to 0 users over 20 minutes
   ],
   //vus: 1,
   //iterations: 1,
@@ -17,6 +17,7 @@ export const options = {
 
 const nbQuestions = 70;
 const iterMax = 20;
+const {host} = "localhost:8080";
 
 function safeGet(url) {
   const { status, body } = http.get(url);
@@ -52,7 +53,6 @@ export function setup() {
 
   return {
     idCampaign,
-    arrIdSurveyUnit,
     arrData,
     arrParadata,
   };
@@ -64,7 +64,7 @@ export default function (data) {
     const { idCampaign } = data.idCampaign;
 
     const res = http.get(
-      `https://demoqueenmongo.dev.insee.io/api/campaign/${idCampaign}/questionnaire`
+      `https://${host}/api/campaign/${idCampaign}/questionnaire`
     );
 
     check(res, {
@@ -72,14 +72,14 @@ export default function (data) {
     });
 
     const res2 = http.get(
-      `https://demoqueenmongo.dev.insee.io/api/campaign/${idCampaign}/metadata`
+      `https://${host}/api/campaign/${idCampaign}/metadata`
     );
     check(res2, {
       "status 200 get campaign metadata": (r) => r.status === 200,
     });
 
     const res3 = http.get(
-      `https://demoqueenmongo.dev.insee.io/api/campaign/${idCampaign}/required-nomenclatures`
+      `https://${host}/api/campaign/${idCampaign}/required-nomenclatures`
     );
     check(res3, {
       "status 200 get required-nomenclatures": (r) => r.status === 200,
@@ -87,7 +87,7 @@ export default function (data) {
 
     res3.json().forEach(function (elt) {
       const res4 = http.get(
-        `https://demoqueenmongo.dev.insee.io/api/nomenclature/${elt}`
+        `https://${host}/api/nomenclature/${elt}`
       );
       check(res4, { "status 200 get nomenclature": (r) => r.status === 200 });
     });
@@ -121,7 +121,7 @@ export default function (data) {
 
         for (let i = 0; i < r; i++) {
           const res6 = http.post(
-            `https://demoqueenmongo.dev.insee.io/api/paradata`, /* pioche dedans et random(2,10) */
+            `https://${host}/api/paradata`, /* pioche dedans et random(2,10) */
             iterationParadata,
             params
           );
@@ -133,14 +133,14 @@ export default function (data) {
         const params = { headers: { "Content-type": "application/json" } };
 
         const res5 = http.put(
-          `https://demoqueenmongo.dev.insee.io/api/survey-unit/${idSurveyUnit}/data`,
+          `https://${host}/api/survey-unit/${idSurveyUnit}/data`,
           iterationData,
           params
         );
         check(res5, { "status 200 put": (r) => r.status === 200 });
 
         const res7 = http.put(
-          `https://demoqueenmongo.dev.insee.io/api/survey-unit/${idSurveyUnit}/state-data`,
+          `https://${host}/api/survey-unit/${idSurveyUnit}/state-data`,
           iterationStateData,
           params
         );
