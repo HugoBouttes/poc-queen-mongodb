@@ -1,12 +1,13 @@
 import http from 'k6/http';
-import { check, sleep } from 'k6';
+import { randomIntBetween } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
+import { check, sleep, group } from 'k6';
 
 
 
 export const options = {
   stages: [
-    { duration: "5s", target: 20 }, // simulate ramp-up of traffic from 1 to ${__ENV.VUS} users over 20 minutes.
-    { duration: "2m", target: 20 }, // stay at ${__ENV.VUS} users for 60m minutes
+    { duration: "5s", target: `${__ENV.VUS}` }, // simulate ramp-up of traffic from 1 to ${__ENV.VUS} users over 20 minutes.
+    { duration: "15s", target: `${__ENV.VUS}` }, // stay at ${__ENV.VUS} users for 60m minutes
     { duration: "5s", target: 0 }, // ramp-down to 0 users over 20 minutes
   ],
   //vus: 1,
@@ -15,7 +16,7 @@ export const options = {
   setupTimeout: "300s",
 };
 
-const nbQuestions = 70;
+const nbQuestions = 100;
 const iterMax = 20;
 const {host} = "localhost:8080";
 
@@ -33,7 +34,10 @@ export function setup() {
 
   const idCampaign = "kwi5uegy3101";
 
+
   const length = 20 * iterMax;
+
+  const {host} = "localhost:8080";
   
   /** on génère plus mais on prend ce qu'on a généré**/ 
   
@@ -48,13 +52,15 @@ export function setup() {
 
 
   const arrStateData = safeGet(
-    "https://minio.lab.sspcloud.fr/hbouttes/State-Data.json"
-  );
+    "https://minio.lab.sspcloud.fr/hbouttes/StateData.json"
+  ); 
+
 
   return {
     idCampaign,
     arrData,
     arrParadata,
+    arrStateData
   };
 }
 
@@ -62,9 +68,10 @@ export default function (data) {
   /****Init : get model, metadata and nomenclatures****/
   group("Init questionnaire", function () {
     const { idCampaign } = data.idCampaign;
+    /**const {host} = "localhost:8080";**/ 
 
     const res = http.get(
-      `https://${host}/api/campaign/${idCampaign}/questionnaire`
+      `{$__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/questionnaire`
     );
 
     check(res, {
@@ -72,87 +79,105 @@ export default function (data) {
     });
 
     const res2 = http.get(
-      `https://${host}/api/campaign/${idCampaign}/metadata`
+      `{$__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/metadata`
     );
     check(res2, {
       "status 200 get campaign metadata": (r) => r.status === 200,
     });
 
     const res3 = http.get(
-      `https://${host}/api/campaign/${idCampaign}/required-nomenclatures`
+      `{$__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/required-nomenclatures`
     );
     check(res3, {
       "status 200 get required-nomenclatures": (r) => r.status === 200,
     });
 
-    res3.json().forEach(function (elt) {
+    const oui = {"nomenclatures":["COMMUNEPASSEE","DEPNAIS","NATIONETR","NOMENCLATURES_HORS_TCM","PAYSNAIS"]};
+    const str = JSON.stringify(oui);
+    const removedebChar = str.slice(18,str.length - 2);
+    const myArray = removedebChar.split(",");
+    for (const elt of myArray) {
+      const elta = elt.slice(1,elt.length-1);
       const res4 = http.get(
-        `https://${host}/api/nomenclature/${elt}`
+        `{$__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/nomenclature/${elta}`
       );
       check(res4, { "status 200 get nomenclature": (r) => r.status === 200 });
-    });
+    };
   });
 
+    /****Filling out questionnaire and paradata****/
+    group("Filling out questionnaire", function () {
+      /**const currentId = (20 - 1) * iterMax + __ITER **/
+      /** const idSurveyUnit = data.arrIdSurveyUnit[currentId]; **/
+  
+      function fillingOutQuestions(end, current) {
+        if (current < end) {
+          const idSurveyUnit = "id" + current;
+          const iterationParadata = data.arrParadata[current];
+          const iterationStateData = data.arrStateData[current];
+          const iterationData = data.arrData[current];           
+          const params = { headers: { "Content-type": "application/json" } };
+          
+          console.log(idSurveyUnit);
 
+          var iterationData2 = "";
 
-  /****Filling out questionnaire and paradata****/
-  group("Filling out questionnaire", function () {
-    const currentId = (20 - 1) * iterMax + __ITER
-    const idSurveyUnit = data.arrIdSurveyUnit[currentId];
-    const end = 70;
+          for (let i = 0; i < current +1 ; i++) {
+            var iterationData3 = JSON.stringify(iterationData);
+            var iterationData2 =  iterationData2 + '"'+"data" + i + '" : '    + iterationData3 +"," ;
+          }; 
+          var iterationData2 = iterationData2.slice(0,iterationData2.length - 1 );
+          var iterationData2 = "{" + iterationData2 + "}";       
 
-    const iterationData = [];
-    function fillingOutQuestions(end, current = 0) {
-      if (current < end) {
-        const idSurveyUnit = current;
-        const iterationData2 = data.arrData[current] ;
-        const iterationParadata = data.arrParadata[current];
+          const r = 2 + randomIntBetween(0, 8);
+          
+          var iterationParadata2 = "";
 
-        /**for (var i = 0; i < current ; i++) {
-          var counter = data.arrData[i];
-          iterationData = iterationData + counter;
-          } **/
-
-        const iterationStateData = data.arrStateData[current];
-
-        const iterationData = iterationData.concat(iterationData2);
-        
-        const r = 2 + getRandomInt(8);
-
-        for (let i = 0; i < r; i++) {
-          const res6 = http.post(
-            `https://${host}/api/paradata`, /* pioche dedans et random(2,10) */
-            iterationParadata,
+          for (let i = 0; i < r; i++) {
+          var iterationParadata3 = JSON.stringify(iterationParadata);
+              iterationParadata2 =  iterationParadata2 + '"' + "paradataEvents" + i + '" : ' + iterationParadata3 + ",";
+          };
+          var iterationParadata2 = iterationParadata2.slice(0,iterationParadata2.length - 1 );
+          var iterationParadata2 = "{" + iterationParadata2 + "}"; 
+          console.log(iterationParadata2);
+          const  res6 = http.post(
+            `${__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/paradata`, 
+            iterationParadata2,
             params
           );
-          check(res6, { "status 200 post": (r) => r.status === 200 });
+          check(res6, { "status 201 post paradata": (r) => r.status === 201 });
+
+          
+          
+          
+          const res5 = http.put(
+            `${__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/survey-units/${idSurveyUnit}/data`,
+            iterationData2,
+            params
+          );
+          check(res5, { "status 200 put data": (r) => r.status === 200 });
+          
+
+          const iterationStateData2 = JSON.stringify(iterationStateData);
+          
+          const res7 = http.put(
+            `${__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/survey-units/${idSurveyUnit}/state-data`,
+            iterationStateData2,
+            params
+          );
+          check(res7, { "status 200 put state-data": (r) => r.status === 200 });
+  
+  
+          
+          sleep(3);
+  
+          fillingOutQuestions(end, current + 1);
         }
-
-
-
-        const params = { headers: { "Content-type": "application/json" } };
-
-        const res5 = http.put(
-          `https://${host}/api/survey-unit/${idSurveyUnit}/data`,
-          iterationData,
-          params
-        );
-        check(res5, { "status 200 put": (r) => r.status === 200 });
-
-        const res7 = http.put(
-          `https://${host}/api/survey-unit/${idSurveyUnit}/state-data`,
-          iterationStateData,
-          params
-        );
-        check(res7, { "status 200 put": (r) => r.status === 200 });
-
-
-        
-        sleep(3 + Math.random() * 7);
-
-        fillingOutQuestions(end, current + 1);
       }
-    }
-    fillingOutQuestions(data.arrData.length);
-  }); 
+  
+      fillingOutQuestions(5, 0);
+  
+    }); 
+
+
 }
