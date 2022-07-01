@@ -6,9 +6,9 @@ import { check, sleep, group } from 'k6';
 
 export const options = {
   stages: [
-    { duration: "5s", target: 1 }, // simulate ramp-up of traffic from 1 to 1 users over 20 minutes.
-    { duration: "15s", target: 1 }, // stay at 1 users for 60m minutes
-    { duration: "5s", target: 0 }, // ramp-down to 0 users over 20 minutes
+    { duration: "20m", target: 1 }, // simulate ramp-up of traffic from 0 to 1 users over 20 minutes.
+    { duration: "60m", target: 1 }, // stay at 1 users for 60m minutes
+    { duration: "20m", target: 0 }, // ramp-down to 0 users over 20 minutes
   ],
   //vus: 1,
   //iterations: 1,
@@ -18,7 +18,6 @@ export const options = {
 
 const nbQuestions = 100;
 const iterMax = 20;
-const {host} = "localhost:8080";
 
 function safeGet(url) {
   const { status, body } = http.get(url);
@@ -175,7 +174,7 @@ export default function (data) {
         }
       }
   
-      fillingOutQuestions(5, 0);
+      fillingOutQuestions(70, 0);
   
     }); 
 
