@@ -6,8 +6,8 @@ import { check, sleep, group } from 'k6';
 
 export const options = {
   stages: [
-    { duration: "5s", target: `${__ENV.VUS}` }, // simulate ramp-up of traffic from 1 to ${__ENV.VUS} users over 20 minutes.
-    { duration: "15s", target: `${__ENV.VUS}` }, // stay at ${__ENV.VUS} users for 60m minutes
+    { duration: "5s", target: `1` }, // simulate ramp-up of traffic from 1 to 1 users over 20 minutes.
+    { duration: "15s", target: `1` }, // stay at 1 users for 60m minutes
     { duration: "5s", target: 0 }, // ramp-down to 0 users over 20 minutes
   ],
   //vus: 1,
@@ -71,7 +71,7 @@ export default function (data) {
     /**const {host} = "localhost:8080";**/ 
 
     const res = http.get(
-      `{$__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/questionnaire`
+      `https://demoqueenmongo.dev.insee.io/api/questionnaire`
     );
 
     check(res, {
@@ -79,14 +79,14 @@ export default function (data) {
     });
 
     const res2 = http.get(
-      `{$__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/metadata`
+      `https://demoqueenmongo.dev.insee.io/api/metadata`
     );
     check(res2, {
       "status 200 get campaign metadata": (r) => r.status === 200,
     });
 
     const res3 = http.get(
-      `{$__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/required-nomenclatures`
+      `https://demoqueenmongo.dev.insee.io/api/required-nomenclatures`
     );
     check(res3, {
       "status 200 get required-nomenclatures": (r) => r.status === 200,
@@ -99,7 +99,7 @@ export default function (data) {
     for (const elt of myArray) {
       const elta = elt.slice(1,elt.length-1);
       const res4 = http.get(
-        `{$__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/nomenclature/${elta}`
+        `https://demoqueenmongo.dev.insee.io/api/nomenclature/${elta}`
       );
       check(res4, { "status 200 get nomenclature": (r) => r.status === 200 });
     };
@@ -141,7 +141,7 @@ export default function (data) {
           var iterationParadata2 = "{" + iterationParadata2 + "}"; 
           console.log(iterationParadata2);
           const  res6 = http.post(
-            `${__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/paradata`, 
+            `https://demoqueenmongo.dev.insee.io/api/paradata`, 
             iterationParadata2,
             params
           );
@@ -151,7 +151,7 @@ export default function (data) {
           
           
           const res5 = http.put(
-            `${__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/survey-units/${idSurveyUnit}/data`,
+            `https://demoqueenmongo.dev.insee.io/api/survey-units/${idSurveyUnit}/data`,
             iterationData2,
             params
           );
@@ -161,7 +161,7 @@ export default function (data) {
           const iterationStateData2 = JSON.stringify(iterationStateData);
           
           const res7 = http.put(
-            `${__ENV.PROTOCOL}://${__ENV.HOSTNAME}/api/survey-units/${idSurveyUnit}/state-data`,
+            `https://demoqueenmongo.dev.insee.io/api/survey-units/${idSurveyUnit}/state-data`,
             iterationStateData2,
             params
           );
