@@ -6,8 +6,8 @@ import { check, sleep, group } from 'k6';
 
 export const options = {
   stages: [
-    { duration: "20m", target: 50 }, // simulate ramp-up of traffic from 0 to 50 users over 20 minutes.
-    { duration: "60m", target: 50 }, // stay at 50 users for 60m minutes
+    { duration: "20m", target: 85 }, // simulate ramp-up of traffic from 0 to 85 users over 20 minutes.
+    { duration: "60m", target: 85 }, // stay at 85 users for 60m minutes
     { duration: "20m", target: 0 }, // ramp-down to 0 users over 20 minutes
   ],
   //vus: 50,
