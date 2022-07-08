@@ -6,9 +6,9 @@ import { check, sleep, group } from 'k6';
 
 export const options = {
   stages: [
-    { duration: "20m", target: 1200 }, // simulate ramp-up of traffic from 0 to 1200 users over 20 minutes.
-    { duration: "60m", target: 1200 }, // stay at 1200 users for 60m minutes
-    { duration: "20m", target: 0 }, // ramp-down to 0 users over 20 minutes
+    { duration: "20s", target: 1200 }, // simulate ramp-up of traffic from 0 to 1200 users over 20 minutes.
+    { duration: "60s", target: 1200 }, // stay at 1200 users for 60m minutes
+    { duration: "20s", target: 0 }, // ramp-down to 0 users over 20 minutes
   ],
   //vus: 1200,
   //iterations: 1,
@@ -54,12 +54,13 @@ export function setup() {
     "https://minio.lab.sspcloud.fr/hbouttes/StateData.json"
   ); 
 
-
+  const randomSurveyUnit = randomIntBetween(0, 50000)
   return {
     idCampaign,
     arrData,
     arrParadata,
-    arrStateData
+    arrStateData,
+    randomSurveyUnit
   };
 }
 
@@ -111,7 +112,7 @@ export default function (data) {
   
       function fillingOutQuestions(end, current) {
         if (current < end) {
-          const idSurveyUnit = "id" + current;
+          const idSurveyUnit = "id" + data.randomSurveyUnit;
           const iterationParadata = data.arrParadata[current];
           const iterationStateData = data.arrStateData[current];
           const iterationData = data.arrData[current];           
@@ -167,14 +168,14 @@ export default function (data) {
           check(res7, { "status 200 put state-data": (r) => r.status === 200 });
   
   
-          
-          sleep(3);
+          const randomSleep = 3 + randomIntBetween(0, 7);
+          sleep(randomSleep);
   
           fillingOutQuestions(end, current + 1);
         }
       }
   
-      fillingOutQuestions(70, 0);
+      fillingOutQuestions(92, 0);
   
     }); 
 
