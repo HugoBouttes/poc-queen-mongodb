@@ -1,9 +1,7 @@
-influxdb:
-  env:
-    - name: INFLUXDB_DB
-      value: "k6"
-  tolerations:   
-    - key: "metallica"
-      operator: "Equal"
-      value: "perf"
-      effect: "NoSchedule"
+apiVersion: v2
+name: my-influxdb
+version: 1.0.0
+dependencies:
+  - name: influxdb
+    version: 4.9.14
+    repository: https://influxdata.github.io/helm-charts
