@@ -54,12 +54,13 @@ export function setup() {
     "https://minio.lab.sspcloud.fr/hbouttes/StateData.json"
   ); 
 
-
+  const randomSurveyUnit = randomIntBetween(0, 50000)
   return {
     idCampaign,
     arrData,
     arrParadata,
-    arrStateData
+    arrStateData,
+    randomSurveyUnit
   };
 }
 
@@ -111,7 +112,7 @@ export default function (data) {
   
       function fillingOutQuestions(end, current) {
         if (current < end) {
-          const idSurveyUnit = "id" + current;
+          const idSurveyUnit = "id" + data.randomSurveyUnit;
           const iterationParadata = data.arrParadata[current];
           const iterationStateData = data.arrStateData[current];
           const iterationData = data.arrData[current];           
@@ -167,14 +168,14 @@ export default function (data) {
           check(res7, { "status 200 put state-data": (r) => r.status === 200 });
   
   
-          
-          sleep(3);
+          const randomSleep = 3 + randomIntBetween(0, 7);
+          sleep(randomSleep);
   
           fillingOutQuestions(end, current + 1);
         }
       }
   
-      fillingOutQuestions(70, 0);
+      fillingOutQuestions(92, 0);
   
     }); 
 

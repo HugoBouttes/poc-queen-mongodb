@@ -10,7 +10,7 @@ export const options = {
     { duration: "60m", target: 85 }, // stay at 85 users for 60m minutes
     { duration: "20m", target: 0 }, // ramp-down to 0 users over 20 minutes
   ],
-  //vus: 50,
+  //vus: 85,
   //iterations: 1,
   //duration: "3600s",
   setupTimeout: "300s",
@@ -54,12 +54,13 @@ export function setup() {
     "https://minio.lab.sspcloud.fr/hbouttes/StateData.json"
   ); 
 
-
+  const randomSurveyUnit = randomIntBetween(0, 50000)
   return {
     idCampaign,
     arrData,
     arrParadata,
-    arrStateData
+    arrStateData,
+    randomSurveyUnit
   };
 }
 
@@ -111,7 +112,7 @@ export default function (data) {
   
       function fillingOutQuestions(end, current) {
         if (current < end) {
-          const idSurveyUnit = "id" + current;
+          const idSurveyUnit = "id" + data.randomSurveyUnit;
           const iterationParadata = data.arrParadata[current];
           const iterationStateData = data.arrStateData[current];
           const iterationData = data.arrData[current];           
@@ -167,14 +168,14 @@ export default function (data) {
           check(res7, { "status 200 put state-data": (r) => r.status === 200 });
   
   
-          
-          sleep(3);
+          const randomSleep = 3 + randomIntBetween(0, 7);
+          sleep(randomSleep);
   
           fillingOutQuestions(end, current + 1);
         }
       }
   
-      fillingOutQuestions(70, 0);
+      fillingOutQuestions(92, 0);
   
     }); 
 
