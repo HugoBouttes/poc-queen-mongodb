@@ -52,7 +52,7 @@ tolerations:
 
 | parameter  | value  |
 |---|---|
-| host  | https://grafana-poc-metallica.dev.insee.io |
+| host  | https://grafana-demoqueenmongo.dev.insee.io |
 | username  | admin |
 | password  | ```kubectl get secret -n $ns my-grafana -o jsonpath="{.data.admin-password}" \| base64 --decode ; echo``` |
 
