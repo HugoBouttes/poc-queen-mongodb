@@ -3,6 +3,7 @@ mongodb:
   arbiter:
     enabled: false
   replicaCount: 3
+  systemLogVerbosity: 3
   auth:
     username: demo
     password: demo
