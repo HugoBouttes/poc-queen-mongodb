@@ -10,8 +10,9 @@
     - puis un **GET** sur chaque élément de la liste reçue sur (_/api/nomenclature/{id}_)
 
 - **remplissage du questionnaire pour l'unité enquêtée d'identifiant idSurveyUnit**
-  - itérer de 0 à 91
+  - itérer de 0 à 92
   - pour chaque itération faire:
-    - **PUT** du contenu de fichier data-{iteration}.json sur _/api/survey-unit/{idSurveyUnit}/data_
-    - **POST** du contenu de fichier paradata-{iteration}.json sur _/api/paradata_
+    - **PUT** aléatoire d'un extrait de [data](https://minio.lab.sspcloud.fr/hbouttes/Data.json)  sur _/api/survey-unit/{idSurveyUnit}/data
+    - **PUT** aléatoire d'un extrait de [state-data](https://minio.lab.sspcloud.fr/hbouttes/StateData.json)  sur _/api/survey-unit/{idSurveyUnit}/data
+    - **POST** daléatoire d'un extrait de [paradata](https://minio.lab.sspcloud.fr/hbouttes/Paradata.json) sur _/api/paradata_
     - petite pause 
